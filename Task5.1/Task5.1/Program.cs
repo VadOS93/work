@@ -70,12 +70,12 @@ namespace Task5._1
                 {
                     Console.WriteLine("Not Fount");
                 }
-                
+
                 Console.WriteLine(result.StatusCode);
                 string data = result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
                 Page p = JsonConvert.DeserializeObject<Page>(data);
 
-                Console.WriteLine(p.data);
+                Console.WriteLine(data);
 
                 var result2 = http.GetAsync("https://reqres.in/api/users/2").GetAwaiter().GetResult();
 
@@ -118,6 +118,8 @@ namespace Task5._1
                 Console.WriteLine(data6);
 
 
+                Console.WriteLine("Now It's time to make Post Requests: ");
+
                 var postUser = new PostUser()
                 {
                     Name = "Vlad",
@@ -134,18 +136,38 @@ namespace Task5._1
                         "application/json"))
                     .GetAwaiter().GetResult();
 
-                Console.WriteLine(postResponse.Content.ReadAsStringAsync().GetAwaiter().GetResult());
+                Console.WriteLine($"{postResponse.StatusCode}   {postResponse.Content.ReadAsStringAsync().GetAwaiter().GetResult()}");
 
                 var postRegister = new Register()
                 { 
-                    email = "wasia@gmail.com",
-                    password = "abrakadabra"
+                    email = "eve.holt@reqres.in",
+                    password = "pistol"
                 };
 
                 string serializePostRegister = JsonConvert.SerializeObject(postRegister);
 
                 var postResponse2 = http.PostAsync("https://reqres.in/api/register", new StringContent(serializePostRegister, Encoding.UTF8, "application/json")).GetAwaiter().GetResult();
-                Console.WriteLine(postResponse2.Content.ReadAsStringAsync().GetAwaiter().GetResult());
+                Console.WriteLine($"{postResponse2.StatusCode}   {postResponse2.Content.ReadAsStringAsync().GetAwaiter().GetResult()}");
+
+                var postRegister2 = new Register()
+                {
+                    email = "eve.holt@reqres.in"
+                };
+
+                string serializePostRegister2 = JsonConvert.SerializeObject(postRegister2);
+
+                var postResponse3 = http.PostAsync("https://reqres.in/api/register", new StringContent(serializePostRegister2, Encoding.UTF8, "application/json")).GetAwaiter().GetResult();
+                Console.WriteLine($"{postResponse3.StatusCode}   {postResponse3.Content.ReadAsStringAsync().GetAwaiter().GetResult()}");
+
+                string serializeLoginRegister = JsonConvert.SerializeObject(postRegister);
+
+                var postResponse4 = http.PostAsync("https://reqres.in/api/login", new StringContent(serializeLoginRegister, Encoding.UTF8, "application/json")).GetAwaiter().GetResult();
+                Console.WriteLine($"{postResponse4.StatusCode}   {postResponse4.Content.ReadAsStringAsync().GetAwaiter().GetResult()}");
+
+                string serializeLoginRegister2 = JsonConvert.SerializeObject(postRegister2);
+
+                var postResponse5 = http.PostAsync("https://reqres.in/api/login", new StringContent(serializeLoginRegister2, Encoding.UTF8, "application/json")).GetAwaiter().GetResult();
+                Console.WriteLine($"{postResponse5.StatusCode}   {postResponse5.Content.ReadAsStringAsync().GetAwaiter().GetResult()}");
 
             }
 
