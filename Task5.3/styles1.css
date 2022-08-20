@@ -1,0 +1,10 @@
+.element {
+width: 350px;
+height: 220px;
+background-color: green;
+border-color: red;
+border-style: dashed;
+padding: 15px 10px 20px 10px;
+margin-bottom: 30px;
+
+}
